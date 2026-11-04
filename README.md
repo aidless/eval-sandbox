@@ -196,6 +196,9 @@ swept=1 dirs                  同时清掉 1 个遗留空 cgroup 目录
 
 pytest：`43 passed`（`python3 -m pytest -q`，三次连跑稳定），其中 `tests/test_fleet.py` 16 个。
 
+GitHub Actions 的 runner 没有 bwrap 和可写 cgroup 子树，所以 CI 里集成用例会自动 skip，
+只跑 11 个纯函数用例（`11 passed, 32 skipped`）；要跑全量 43 个必须换到特权主机。
+
 ## 明确没做的事（不要当成已实现）
 
 1. **没有白名单出网**：只支持 `network="none"`。白名单需要 veth/slirp 一类，无 root 做不到；
