@@ -13,6 +13,12 @@ INTEGRATION_TESTS = {
     "test_determinism.py",
 }
 
+# 单测文件里断言"本机确实具备前置能力"或直接构造 bwrap argv 的用例，同样需要特权主机。
+HOST_PREREQ_TESTS = {
+    "test_capabilities_report_real_paths",
+    "test_bwrap_argv_requests_full_namespace_isolation",
+}
+
 
 def _prereq_gap() -> str | None:
     if shutil.which("bwrap") is None:
@@ -29,7 +35,7 @@ def pytest_collection_modifyitems(config, items):
         return
     skip = pytest.mark.skip(reason=f"集成用例需要特权主机：{gap}")
     for item in items:
-        if item.path.name in INTEGRATION_TESTS:
+        if item.path.name in INTEGRATION_TESTS or item.name in HOST_PREREQ_TESTS:
             item.add_marker(skip)
 
 
