@@ -164,22 +164,35 @@ class CgroupLimit:
                 time.sleep(0.01)
 
 
-def residual_processes(token: str) -> list[int]:
-    """按标识查孤儿：遍历 /proc，看还有没有进程留在本轮的 cgroup 子树里。
+def _is_zombie(pid: int) -> bool:
+    """僵尸进程已经退出、只是在等父进程 reap；/proc 里还挂着但不再占资源。"""
+    try:
+        with open("/proc/%d/stat" % pid, encoding="utf-8") as fh:
+            data = fh.read()
+    except OSError:
+        return True
+    tail = data.rsplit(")", 1)[-1].split()
+    return bool(tail) and tail[0] == "Z"
 
-    只认 cgroup 路径里的唯一 token，不靠"看起来没了"。
+
+def residual_processes(token: str) -> list[int]:
+    """按标识查孤儿：遍历 /proc，看还有没有**活着的**进程留在本轮 cgroup 子树里。
+
+    只认 cgroup 路径里的唯一 token，不靠"看起来没了"；僵尸态不算活进程，
+    否则内核尚未 reap 的退出过程会被误判成泄漏。
     """
     found: list[int] = []
     for entry in os.listdir("/proc"):
         if not entry.isdigit():
             continue
+        pid = int(entry)
         try:
             with open("/proc/%s/cgroup" % entry, encoding="utf-8") as fh:
                 content = fh.read()
         except OSError:
             continue
-        if token in content:
-            found.append(int(entry))
+        if token in content and not _is_zombie(pid):
+            found.append(pid)
     return sorted(found)
 
 

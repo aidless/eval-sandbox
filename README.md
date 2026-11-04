@@ -3,8 +3,9 @@
 任务级沙盒隔离执行器 + 并发评测车队（`eval-fleet`）：给每一条 LLM 评测任务一个独立的网络/挂载/PID 命名空间 + 独立 cgroup v2，
 把"任务跑了但不知道是不是被隔离了"变成"每条限制都有可执行断言和归因证据"；再多任务并发时，逐个任务断言隔离没有退化。
 
-> **放在 `/home/liuzewen/eval-sandbox` 的原因**：与 `eval-gate`（判决层）、`rubric-support-qa`（判据层）
-> 同级，是同一套求职作品集里的独立可 clone 仓库；不改动并行开发中的另外两个目录。
+> **在作品集中的位置**：与 [`eval-gate`](https://github.com/aidless/eval-gate)（判决层）、
+> [`rubric-support-qa`](https://github.com/aidless/rubric-support-qa)（判据层）同级，
+> 是三个可独立 clone 的仓库之一。
 
 ## 一条命令
 
