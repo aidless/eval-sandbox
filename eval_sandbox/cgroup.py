@@ -32,8 +32,22 @@ def own_cgroup_path() -> str | None:
     return None
 
 
+_BASE_CACHE: list[str | None] = []
+
+
 def find_writable_base() -> str | None:
-    """从本进程所在 cgroup 逐级向上，找第一个能建子组且子组带 memory/cpu 的目录。"""
+    """从本进程所在 cgroup 逐级向上，找第一个能建子组且子组带 memory/cpu 的目录。
+
+    结果进程内缓存：fleet 并发时 20 个线程各自探测会反复建删目录，既慢又吵。
+    """
+    if _BASE_CACHE:
+        return _BASE_CACHE[0]
+    base = _probe_writable_base()
+    _BASE_CACHE.append(base)
+    return base
+
+
+def _probe_writable_base() -> str | None:
     cur = own_cgroup_path()
     candidates: list[str] = []
     while cur and cur.startswith(CGROUP_FS):
@@ -148,3 +162,47 @@ class CgroupLimit:
                 return
             except OSError:
                 time.sleep(0.01)
+
+
+def residual_processes(token: str) -> list[int]:
+    """按标识查孤儿：遍历 /proc，看还有没有进程留在本轮的 cgroup 子树里。
+
+    只认 cgroup 路径里的唯一 token，不靠"看起来没了"。
+    """
+    found: list[int] = []
+    for entry in os.listdir("/proc"):
+        if not entry.isdigit():
+            continue
+        try:
+            with open("/proc/%s/cgroup" % entry, encoding="utf-8") as fh:
+                content = fh.read()
+        except OSError:
+            continue
+        if token in content:
+            found.append(int(entry))
+    return sorted(found)
+
+
+def sweep_orphan_cgroups(token: str) -> list[str]:
+    """清理崩溃遗留的空 cgroup 目录（进程已死但目录还在的情况）。有进程在里面的不碰。"""
+    base = find_writable_base()
+    if base is None:
+        return []
+    removed: list[str] = []
+    try:
+        names = os.listdir(base)
+    except OSError:
+        return []
+    for name in names:
+        if not name.startswith("esbx-") or token not in name:
+            continue
+        path = os.path.join(base, name)
+        try:
+            with open(os.path.join(path, "cgroup.procs"), encoding="utf-8") as fh:
+                if fh.read().strip():
+                    continue
+            os.rmdir(path)
+            removed.append(name)
+        except OSError:
+            continue
+    return sorted(removed)

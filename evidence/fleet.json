@@ -1,0 +1,380 @@
+{
+  "capabilities": {
+    "bwrap": "/usr/bin/bwrap",
+    "cgroup_base": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service",
+    "unshare": "/usr/bin/unshare",
+    "userns_unprivileged": "1"
+  },
+  "checks": [
+    {
+      "id": "C1_concurrency",
+      "passed": true
+    },
+    {
+      "id": "C2_isolation_no_degradation",
+      "passed": true
+    },
+    {
+      "id": "C3_cross_task_invisible",
+      "passed": true
+    },
+    {
+      "id": "C4_oom_isolated",
+      "passed": true
+    },
+    {
+      "id": "C5_no_orphans",
+      "passed": true
+    },
+    {
+      "id": "C7_determinism",
+      "passed": true
+    },
+    {
+      "id": "C6_ledger_attribution",
+      "passed": true
+    }
+  ],
+  "digests": [
+    "65c4936a847ddb92e2e7a8e4ba6889be0ec80395007f29ee87fd07a0e1b0b2af",
+    "65c4936a847ddb92e2e7a8e4ba6889be0ec80395007f29ee87fd07a0e1b0b2af",
+    "65c4936a847ddb92e2e7a8e4ba6889be0ec80395007f29ee87fd07a0e1b0b2af"
+  ],
+  "generated_at_utc": "2026-11-04T07:15:13Z",
+  "generated_by": "eval_sandbox.cli fleet",
+  "leak_test": {
+    "passed": true,
+    "residual_after_kill": [],
+    "sandbox_pids_observed": [
+      3948997
+    ],
+    "swept_cgroup_dirs": [
+      "esbx-leak-c960c925-7babc731"
+    ]
+  },
+  "ledger": [
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 201819,
+      "cpu_usage_usec": 252774,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 8777728,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t00-1127dccc",
+      "task_id": "fleet-t00",
+      "verdict_sha256": "bd322fc2514f80333b624fc363d6c83fe0bf91259c359b67bb25799343675c30",
+      "wall_s": 0.495
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 201028,
+      "cpu_usage_usec": 255834,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6696960,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t01-0a6622ea",
+      "task_id": "fleet-t01",
+      "verdict_sha256": "e9bd493c5050e8fcdf75561bbc4d9e191f3e8a9a3b4b97c0b24479527f1a8fa0",
+      "wall_s": 0.52
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 200276,
+      "cpu_usage_usec": 253038,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6475776,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t02-892e4f1f",
+      "task_id": "fleet-t02",
+      "verdict_sha256": "2d4108cdb4521789e522033bcd63c8639639e709edc74cf8696af4e92a3a4cf3",
+      "wall_s": 0.48
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 195161,
+      "cpu_usage_usec": 246118,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6914048,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t03-bb9afa2d",
+      "task_id": "fleet-t03",
+      "verdict_sha256": "f2853ad9339e270af3945093da390b39e4059904a93846ea1910b7e92a32da4c",
+      "wall_s": 0.458
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 176848,
+      "cpu_usage_usec": 251770,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6242304,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t04-8b1c5c0f",
+      "task_id": "fleet-t04",
+      "verdict_sha256": "bc704464f97712af1ecbe5ff4eccfed9c69cf76f258754d97968689374571f60",
+      "wall_s": 0.473
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 187760,
+      "cpu_usage_usec": 237505,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6385664,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t05-0f66495c",
+      "task_id": "fleet-t05",
+      "verdict_sha256": "7a7e2e2bc34b77b90984d21facc6a5274df42a490f24f3e44e83304ba5236cec",
+      "wall_s": 0.604
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 171324,
+      "cpu_usage_usec": 279302,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6057984,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t06-4f9d32e5",
+      "task_id": "fleet-t06",
+      "verdict_sha256": "eea6d26b1825be8650fa7922b80c603f6888a8cc79721492584defdf05f4fb06",
+      "wall_s": 0.632
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 135539,
+      "cpu_usage_usec": 292734,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 5959680,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t07-89afeb24",
+      "task_id": "fleet-t07",
+      "verdict_sha256": "0f69877644adfe620e74e9865e04d6571433fbff003d808ec8cf5450e2a5910b",
+      "wall_s": 0.653
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 181231,
+      "cpu_usage_usec": 262525,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6283264,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t08-596cc04b",
+      "task_id": "fleet-t08",
+      "verdict_sha256": "4e71ef9010f17960a47b468252dfd5c040f1688d7283ae8785b629d719428ed4",
+      "wall_s": 0.688
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 175425,
+      "cpu_usage_usec": 288595,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6422528,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t09-458f7ff9",
+      "task_id": "fleet-t09",
+      "verdict_sha256": "75654eb5b72ff1bc7ef1eae7b6f94119e3d4efbc2031a133d263c66058c13393",
+      "wall_s": 0.731
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 192392,
+      "cpu_usage_usec": 259698,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6422528,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t10-741c384b",
+      "task_id": "fleet-t10",
+      "verdict_sha256": "1812742f3e1438f19f66464ccfdbad2ec445ceaba36fc1fe8fd4163ed4a8110a",
+      "wall_s": 0.673
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 130542,
+      "cpu_usage_usec": 282044,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6258688,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t11-86218196",
+      "task_id": "fleet-t11",
+      "verdict_sha256": "4e97b5e10bf58e71de2318b6f48e935038c7ef857d9fc37dd7ac20be6d46044f",
+      "wall_s": 0.662
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 154117,
+      "cpu_usage_usec": 256999,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6139904,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t12-65958d19",
+      "task_id": "fleet-t12",
+      "verdict_sha256": "56db331e4c82276353d1b5f8a6177016de8ad13c5b97beed2fb517178f650956",
+      "wall_s": 0.606
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 160524,
+      "cpu_usage_usec": 284247,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6995968,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t13-1b90c6cf",
+      "task_id": "fleet-t13",
+      "verdict_sha256": "5aebfe23f8e76951efc435ebad4829b4e7c2758e24924bd656e84a6385eee506",
+      "wall_s": 0.706
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 147494,
+      "cpu_usage_usec": 280837,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6037504,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t14-e1e1086c",
+      "task_id": "fleet-t14",
+      "verdict_sha256": "50016c54261dda1a974bdd8b02c6310cd2109ac8b72f466a854e3ef5f065ff40",
+      "wall_s": 0.698
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 193506,
+      "cpu_usage_usec": 269934,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6336512,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t15-cca563e2",
+      "task_id": "fleet-t15",
+      "verdict_sha256": "4862b756e8b7253e42b0304fed1a5e3485bb39ade6a21ca4ef6df777855f18b8",
+      "wall_s": 0.669
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 149198,
+      "cpu_usage_usec": 288142,
+      "exit_code": 0,
+      "kind": "standard",
+      "memory_peak_bytes": 6082560,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-t16-beb0efcb",
+      "task_id": "fleet-t16",
+      "verdict_sha256": "cc806ccfa343049c1c7e43578591824180a957831d68a9392160d09afae4c49e",
+      "wall_s": 0.702
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 159554,
+      "cpu_usage_usec": 269177,
+      "exit_code": 0,
+      "kind": "writer",
+      "memory_peak_bytes": 6184960,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-fs_writer-7a442faa",
+      "task_id": "fleet-fs_writer",
+      "verdict_sha256": "7b47d2fdf9644e844ab752998fd4b1a1e1e8bb17779283bd70e9049a39af41ca",
+      "wall_s": 0.721
+    },
+    {
+      "attribution": "ok",
+      "cpu_throttled_usec": 189199,
+      "cpu_usage_usec": 291686,
+      "exit_code": 0,
+      "kind": "reader",
+      "memory_peak_bytes": 7200768,
+      "outcome": "ok",
+      "sandbox_id": "esbx-fleet-c960c925-fs_reader-0b96a68b",
+      "task_id": "fleet-fs_reader",
+      "verdict_sha256": "d025e55c7e9216197fde90bf99ba7b43a3e91070265332928419ff8442825cc5",
+      "wall_s": 1.691
+    },
+    {
+      "attribution": "oom",
+      "cpu_throttled_usec": 168123,
+      "cpu_usage_usec": 345540,
+      "exit_code": 137,
+      "kind": "oom",
+      "memory_peak_bytes": 67108864,
+      "outcome": "oom",
+      "sandbox_id": "esbx-fleet-c960c925-mem_oom-121ffbe9",
+      "task_id": "fleet-mem_oom",
+      "verdict_sha256": "8097e8a234c71e5586ca330477f6bde09e58abe8feeb1415dcbca1ce8ca798a5",
+      "wall_s": 0.832
+    },
+    {
+      "attribution": "wall_timeout",
+      "cpu_throttled_usec": 1580981,
+      "cpu_usage_usec": 1623542,
+      "exit_code": -9,
+      "kind": "timeout",
+      "memory_peak_bytes": 5410816,
+      "outcome": "wall_timeout",
+      "sandbox_id": "esbx-fleet-c960c925-fault_tim-6af9c02b",
+      "task_id": "fleet-fault_timeout",
+      "verdict_sha256": "29da90c520bb7654d25fe0b76bae3fb01e2d6eb2527949d4e5d4de7fbcab30da",
+      "wall_s": 3.251
+    },
+    {
+      "attribution": "denied_fs",
+      "cpu_throttled_usec": 0,
+      "cpu_usage_usec": 35886,
+      "exit_code": 5,
+      "kind": "fs_denied",
+      "memory_peak_bytes": 4673536,
+      "outcome": "nonzero_exit",
+      "sandbox_id": "esbx-fleet-c960c925-fault_fs-af5df0b7",
+      "task_id": "fleet-fault_fs",
+      "verdict_sha256": "f5886972b577fadcb104b302f854924d234432b2286dcc435d02afca2cf962da",
+      "wall_s": 0.075
+    },
+    {
+      "attribution": "denied_network",
+      "cpu_throttled_usec": 0,
+      "cpu_usage_usec": 51329,
+      "exit_code": 3,
+      "kind": "net_denied",
+      "memory_peak_bytes": 7929856,
+      "outcome": "nonzero_exit",
+      "sandbox_id": "esbx-fleet-c960c925-fault_net-33627e91",
+      "task_id": "fleet-fault_net",
+      "verdict_sha256": "49ea01e64dd88112c91d3d7a3214beb0c877d816378048499e51f6fd2d616130",
+      "wall_s": 0.092
+    },
+    {
+      "attribution": "nonzero_exit",
+      "cpu_throttled_usec": 0,
+      "cpu_usage_usec": 34533,
+      "exit_code": 7,
+      "kind": "nonzero",
+      "memory_peak_bytes": 4464640,
+      "outcome": "nonzero_exit",
+      "sandbox_id": "esbx-fleet-c960c925-fault_non-d476130f",
+      "task_id": "fleet-fault_nonzero",
+      "verdict_sha256": "78ea6a0ddd1a70b46f57fac1b2252045a4a1d5fb9889fe636679f7be0ad5c4e3",
+      "wall_s": 0.158
+    }
+  ],
+  "summary": {
+    "all_passed": true,
+    "passed": 7,
+    "total": 7
+  },
+  "tasks": 20,
+  "timing": {
+    "concurrent_s": 2.084,
+    "serial_s": 15.935
+  },
+  "token": "c960c925"
+}

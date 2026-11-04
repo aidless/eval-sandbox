@@ -25,6 +25,25 @@ from .policy import Policy
 
 BWRAP = shutil.which("bwrap")
 
+# 进入 cgroup 的启动器：$1 为 cgroup.procs 路径，写 `$$` 后原地 exec 成 bwrap。
+# 失败则用 97 这个专属退出码，和负载自己的退出码区分开。
+_LAUNCHER_SCRIPT = 'printf %s "$$" > "$1" || exit 97; shift; exec "$@"'
+LAUNCHER_FAILED = 97
+
+
+def cpu_usage_within_quota(usage_usec: int, throttled_usec: int, wall_s: float,
+                           cpu_quota_pct: int) -> tuple[bool, str]:
+    """CPU 配额是否真的按任务生效。
+
+    判定两件事：(a) 该组确实被 throttle 过；(b) 用量不超过"配额×墙钟 + 一个周期"。
+    cpu.max 是按 100ms 周期结算的，跨周期边界时最多多用一个周期的额度，
+    所以留 100000us 的余量，而不是拿 1.2 这种拍脑袋系数。
+    """
+    allowed = cpu_quota_pct / 100.0 * wall_s * 1_000_000 + 100_000
+    ok = throttled_usec > 0 and usage_usec <= allowed
+    detail = "usage=%dus allowed<=%.0fus throttled=%dus" % (usage_usec, allowed, throttled_usec)
+    return ok, detail
+
 
 class SandboxUnavailable(RuntimeError):
     """隔离能力不成立时抛出；调用方必须据此判定失败，不能降级成"没隔离也算过"。"""
@@ -52,7 +71,7 @@ def _sha256_text(text: str) -> str:
 def verdict_payload(
     task_id: str, outcome: str, exit_code: int | None, stdout: str, stderr: str, policy: Policy
 ) -> dict:
-    return {
+    payload = {
         "task_id": task_id,
         "outcome": outcome,
         "exit_code": exit_code,
@@ -60,6 +79,14 @@ def verdict_payload(
         "stderr_sha256": _sha256_text(stderr),
         "limits": policy.limits(),
     }
+    if outcome == "oom":
+        # OOM 的判决依据是内核事件 memory.events.oom_kill。"被 SIGKILL 还是解释器先抛出
+        # MemoryError"取决于回收时机，属竞态噪声：机器忙的时候同一个负载可能拿到
+        # 137，也可能在 stderr 留一段 MemoryError 栈、退出码 1。若把它算进摘要，
+        # 同一组任务重跑就会得到不同 sha——那不是不确定性，是摘要收录了噪声。
+        payload["exit_code"] = "oom-killed"
+        payload["stderr_sha256"] = _sha256_text("")
+    return payload
 
 
 def verdict_sha256(payload: dict) -> str:
@@ -114,12 +141,18 @@ def build_bwrap_argv(policy: Policy, argv: list[str]) -> list[str]:
     return args + list(argv)
 
 
-def run(argv: list[str], policy: Policy, task_id: str = "task") -> RunResult:
+def run(argv: list[str], policy: Policy, task_id: str = "task", label: str | None = None) -> RunResult:
+    """执行一次任务。
+
+    task_id 进判决摘要，必须跨重跑稳定；label 只用于 cgroup 命名（fleet 会在里面
+    塞本轮 token 以便按标识查孤儿），两者分开是为了让"判决 sha256 与并发顺序无关"
+    在跨进程重跑时也成立。
+    """
     if BWRAP is None:
         raise SandboxUnavailable("找不到 bwrap（bubblewrap）；不做降级，直接拒绝执行")
 
     try:
-        cg = CgroupLimit(task_id)
+        cg = CgroupLimit(label or task_id)
     except CgroupUnavailable as exc:
         raise SandboxUnavailable(str(exc)) from exc
 
@@ -127,11 +160,10 @@ def run(argv: list[str], policy: Policy, task_id: str = "task") -> RunResult:
     cmd = build_bwrap_argv(policy, argv)
     procs_file = cg.procs_file
 
-    def _enter_cgroup() -> None:
-        # 在 exec 之前把"将要变成 bwrap 的这个进程"放进 cgroup；
-        # bwrap 再 fork 出的负载与后代全部继承这个成员关系。
-        with open(procs_file, "w", encoding="utf-8") as fh:
-            fh.write(str(os.getpid()))
+    # 用 /bin/sh 在 exec 之前把自身写入 cgroup，再原地 exec 成 bwrap。
+    # 这样就不依赖 preexec_fn——后者在多线程编排器里 fork 后可能死锁，
+    # 而 fleet 正是多线程并发调用。
+    launch_cmd = ["/bin/sh", "-c", _LAUNCHER_SCRIPT, "esbx-launch", procs_file] + cmd
 
     deadline_hit = False
     started = time.monotonic()
@@ -139,11 +171,10 @@ def run(argv: list[str], policy: Policy, task_id: str = "task") -> RunResult:
     exit_code: int | None = None
     try:
         proc = subprocess.Popen(
-            cmd,
+            launch_cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            preexec_fn=_enter_cgroup,
             start_new_session=True,
             cwd=policy.workdir,
         )
@@ -162,6 +193,9 @@ def run(argv: list[str], policy: Policy, task_id: str = "task") -> RunResult:
         duration = time.monotonic() - started
         evidence = cg.stats()
         cg.close()
+
+    if exit_code == LAUNCHER_FAILED:
+        raise SandboxUnavailable("启动器没能把任务进程写入 cgroup.procs（exit 97）")
 
     oom_kill = evidence.get("memory_events", {}).get("oom_kill", 0)
     outcome = classify_outcome(deadline_hit, oom_kill, exit_code)
