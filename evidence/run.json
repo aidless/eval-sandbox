@@ -1,0 +1,629 @@
+{
+  "capabilities": {
+    "bwrap": "/usr/bin/bwrap",
+    "cgroup_base": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service",
+    "unshare": "/usr/bin/unshare",
+    "userns_unprivileged": "1"
+  },
+  "generated_at_utc": "2026-11-04T06:36:53Z",
+  "generated_by": "eval_sandbox.cli check",
+  "results": [
+    {
+      "cid": "net_external_denied",
+      "detail": "stderr='DENIED OSError: [Errno 101] Network is unreachable' 0.09s",
+      "duration_s": 0.09181905095465481,
+      "kind": "network",
+      "outcome": "nonzero_exit",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.0918,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 28160,
+              "throttled_usec": 0,
+              "usage_usec": 68388,
+              "user_usec": 40228
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 6230016
+          },
+          "exit_code": 3,
+          "outcome": "nonzero_exit",
+          "sandbox_id": "esbx-net_external_denied-7373ae86",
+          "stderr": "DENIED OSError: [Errno 101] Network is unreachable",
+          "stdout": "",
+          "verdict_sha256": "ef62dd777637ec9d6669b06dbbb68ef476c96cd781a132c8e1b4ae4f9fcc2cd0"
+        }
+      ],
+      "sandbox_id": "esbx-net_external_denied-7373ae86",
+      "verdict_sha256": "ef62dd777637ec9d6669b06dbbb68ef476c96cd781a132c8e1b4ae4f9fcc2cd0"
+    },
+    {
+      "cid": "net_loopback_allowed",
+      "detail": "stdout='LOOPBACK_OK ping'",
+      "duration_s": 0.0821147810202092,
+      "kind": "network",
+      "outcome": "ok",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.0821,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 35193,
+              "throttled_usec": 0,
+              "usage_usec": 74409,
+              "user_usec": 39215
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 5984256
+          },
+          "exit_code": 0,
+          "outcome": "ok",
+          "sandbox_id": "esbx-net_loopback_allowed-c4580e40",
+          "stderr": "",
+          "stdout": "LOOPBACK_OK ping",
+          "verdict_sha256": "f69de97281ef75db6a2487f92b21570b20679f779f17cef5c3ba5fc1aaae91d7"
+        }
+      ],
+      "sandbox_id": "esbx-net_loopback_allowed-c4580e40",
+      "verdict_sha256": "f69de97281ef75db6a2487f92b21570b20679f779f17cef5c3ba5fc1aaae91d7"
+    },
+    {
+      "cid": "fs_read_outside_denied",
+      "detail": "stderr=\"DENIED FileNotFoundError: [Errno 2] No such file or directory: '/tmp/esbx-forbidden-z0aedpzk/secret.txt'\"",
+      "duration_s": 0.05469062097836286,
+      "kind": "filesystem",
+      "outcome": "nonzero_exit",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.0547,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 0,
+              "nr_throttled": 0,
+              "system_usec": 29274,
+              "throttled_usec": 0,
+              "usage_usec": 42398,
+              "user_usec": 13123
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 4673536
+          },
+          "exit_code": 4,
+          "outcome": "nonzero_exit",
+          "sandbox_id": "esbx-fs_read_outside_denied-785ba644",
+          "stderr": "DENIED FileNotFoundError: [Errno 2] No such file or directory: '/tmp/esbx-forbidden-z0aedpzk/secret.txt'",
+          "stdout": "",
+          "verdict_sha256": "7ea279ddc3117b6842be2c125234bec6904b6e23300530b7490680212b1c479b"
+        }
+      ],
+      "sandbox_id": "esbx-fs_read_outside_denied-785ba644",
+      "verdict_sha256": "7ea279ddc3117b6842be2c125234bec6904b6e23300530b7490680212b1c479b"
+    },
+    {
+      "cid": "fs_write_system_denied",
+      "detail": "stderr=\"DENIED OSError: [Errno 30] Read-only file system: '/usr/lib/.esbx-write-probe'\"",
+      "duration_s": 0.06037073791958392,
+      "kind": "filesystem",
+      "outcome": "nonzero_exit",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.0604,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 28100,
+              "throttled_usec": 0,
+              "usage_usec": 48171,
+              "user_usec": 20071
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 4427776
+          },
+          "exit_code": 5,
+          "outcome": "nonzero_exit",
+          "sandbox_id": "esbx-fs_write_system_denied-fff482be",
+          "stderr": "DENIED OSError: [Errno 30] Read-only file system: '/usr/lib/.esbx-write-probe'",
+          "stdout": "",
+          "verdict_sha256": "585c80ded3ebb0724583d1732f29faadfe70bd0050d53784bd21e40ac01718ab"
+        }
+      ],
+      "sandbox_id": "esbx-fs_write_system_denied-fff482be",
+      "verdict_sha256": "585c80ded3ebb0724583d1732f29faadfe70bd0050d53784bd21e40ac01718ab"
+    },
+    {
+      "cid": "fs_workdir_readwrite",
+      "detail": "stdout='WORKDIR_RW_OK'",
+      "duration_s": 0.07075831794645637,
+      "kind": "filesystem",
+      "outcome": "ok",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.0708,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 35578,
+              "throttled_usec": 0,
+              "usage_usec": 58309,
+              "user_usec": 22730
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 4149248
+          },
+          "exit_code": 0,
+          "outcome": "ok",
+          "sandbox_id": "esbx-fs_workdir_readwrite-025c8e53",
+          "stderr": "",
+          "stdout": "WORKDIR_RW_OK",
+          "verdict_sha256": "a15719ef064d705976e83d4fb004784959db7e669ef495e6aaab83f09fea27fa"
+        }
+      ],
+      "sandbox_id": "esbx-fs_workdir_readwrite-025c8e53",
+      "verdict_sha256": "a15719ef064d705976e83d4fb004784959db7e669ef495e6aaab83f09fea27fa"
+    },
+    {
+      "cid": "res_wall_timeout",
+      "detail": "outcome=wall_timeout exit=-9 2.02s",
+      "duration_s": 2.020066217985004,
+      "kind": "resource",
+      "outcome": "wall_timeout",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 2.0201,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 20,
+              "nr_throttled": 3,
+              "system_usec": 26971,
+              "throttled_usec": 2369,
+              "usage_usec": 1997856,
+              "user_usec": 1970885
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 4407296
+          },
+          "exit_code": -9,
+          "outcome": "wall_timeout",
+          "sandbox_id": "esbx-res_wall_timeout-f81b4a0c",
+          "stderr": "",
+          "stdout": "",
+          "verdict_sha256": "c42658efb91ad86636ecb4c515d589a0af761bfe3db377d75e26901f653be2b1"
+        }
+      ],
+      "sandbox_id": "esbx-res_wall_timeout-f81b4a0c",
+      "verdict_sha256": "c42658efb91ad86636ecb4c515d589a0af761bfe3db377d75e26901f653be2b1"
+    },
+    {
+      "cid": "res_memory_oom",
+      "detail": "outcome=oom oom_kill=1 peak=67108864/67108864",
+      "duration_s": 0.1346091729355976,
+      "kind": "resource",
+      "outcome": "oom",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.1346,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "67108864",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 2,
+              "nr_throttled": 0,
+              "system_usec": 103590,
+              "throttled_usec": 0,
+              "usage_usec": 124711,
+              "user_usec": 21120
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 38,
+              "oom": 1,
+              "oom_group_kill": 0,
+              "oom_kill": 1,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 67108864
+          },
+          "exit_code": 137,
+          "outcome": "oom",
+          "sandbox_id": "esbx-res_memory_oom-80b666d9",
+          "stderr": "",
+          "stdout": "",
+          "verdict_sha256": "36ab00813672f3e7f3e65561f4a6b795954b2cfe62daa07449e899228e70044f"
+        }
+      ],
+      "sandbox_id": "esbx-res_memory_oom-80b666d9",
+      "verdict_sha256": "36ab00813672f3e7f3e65561f4a6b795954b2cfe62daa07449e899228e70044f"
+    },
+    {
+      "cid": "res_cpu_quota",
+      "detail": "usage=1045066us throttled=998918us wall=2.07s",
+      "duration_s": 2.0651471640449017,
+      "kind": "resource",
+      "outcome": "ok",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 2.0651,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "50000 100000",
+              "memory.max": "268435456",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 21,
+              "nr_throttled": 20,
+              "system_usec": 636992,
+              "throttled_usec": 998918,
+              "usage_usec": 1045066,
+              "user_usec": 408073
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 4403200
+          },
+          "exit_code": 0,
+          "outcome": "ok",
+          "sandbox_id": "esbx-res_cpu_quota-83aed684",
+          "stderr": "",
+          "stdout": "SPIN_DONE 485829",
+          "verdict_sha256": "9ec21d97986fa4e4879a2730fa282cebaa9f83e4fa752eaddbc37f7f046595fe"
+        }
+      ],
+      "sandbox_id": "esbx-res_cpu_quota-83aed684",
+      "verdict_sha256": "9ec21d97986fa4e4879a2730fa282cebaa9f83e4fa752eaddbc37f7f046595fe"
+    },
+    {
+      "cid": "res_pids_limit",
+      "detail": "stderr='DENIED BlockingIOError: [Errno 11] Resource temporarily unavailable'",
+      "duration_s": 0.0674155349843204,
+      "kind": "resource",
+      "outcome": "nonzero_exit",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.0674,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "268435456",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "16"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 48524,
+              "throttled_usec": 0,
+              "usage_usec": 62978,
+              "user_usec": 14454
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 8835072
+          },
+          "exit_code": 6,
+          "outcome": "nonzero_exit",
+          "sandbox_id": "esbx-res_pids_limit-c86b9f66",
+          "stderr": "DENIED BlockingIOError: [Errno 11] Resource temporarily unavailable",
+          "stdout": "",
+          "verdict_sha256": "af4f1a77e019da6b5d97308bf0e49c0dc6b258bb414effc650b80fdc786982a6"
+        }
+      ],
+      "sandbox_id": "esbx-res_pids_limit-c86b9f66",
+      "verdict_sha256": "af4f1a77e019da6b5d97308bf0e49c0dc6b258bb414effc650b80fdc786982a6"
+    },
+    {
+      "cid": "det_repeat3",
+      "detail": "3 次 sha256=c8731d03843141c7ce5c7d01cb4178cf50013d0b17da771db89b13e7b402d23b（全部一致）",
+      "duration_s": 0.09209800907410681,
+      "kind": "determinism",
+      "outcome": "ok",
+      "passed": true,
+      "runs": [
+        {
+          "duration_s": 0.0921,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 34752,
+              "throttled_usec": 0,
+              "usage_usec": 78440,
+              "user_usec": 43688
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 6266880
+          },
+          "exit_code": 0,
+          "outcome": "ok",
+          "sandbox_id": "esbx-det_repeat3-79ce242d",
+          "stderr": "",
+          "stdout": "DET a44659ebee4b06236fc28174008bf1416141b69a4edd0f2b2e62a5eece75cec3",
+          "verdict_sha256": "c8731d03843141c7ce5c7d01cb4178cf50013d0b17da771db89b13e7b402d23b"
+        },
+        {
+          "duration_s": 0.0837,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 35277,
+              "throttled_usec": 0,
+              "usage_usec": 75594,
+              "user_usec": 40317
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 6246400
+          },
+          "exit_code": 0,
+          "outcome": "ok",
+          "sandbox_id": "esbx-det_repeat3-12345880",
+          "stderr": "",
+          "stdout": "DET a44659ebee4b06236fc28174008bf1416141b69a4edd0f2b2e62a5eece75cec3",
+          "verdict_sha256": "c8731d03843141c7ce5c7d01cb4178cf50013d0b17da771db89b13e7b402d23b"
+        },
+        {
+          "duration_s": 0.105,
+          "evidence": {
+            "applied_limits": {
+              "cpu.max": "100000 100000",
+              "memory.max": "134217728",
+              "memory.oom.group": "0",
+              "memory.swap.max": "0",
+              "pids.max": "64"
+            },
+            "cpu_stat": {
+              "burst_usec": 0,
+              "core_sched.force_idle_usec": 0,
+              "nice_usec": 0,
+              "nr_bursts": 0,
+              "nr_periods": 1,
+              "nr_throttled": 0,
+              "system_usec": 38013,
+              "throttled_usec": 0,
+              "usage_usec": 89383,
+              "user_usec": 51369
+            },
+            "mechanism": "cgroup_v2",
+            "memory_events": {
+              "high": 0,
+              "low": 0,
+              "max": 0,
+              "oom": 0,
+              "oom_group_kill": 0,
+              "oom_kill": 0,
+              "sock_throttled": 0
+            },
+            "memory_peak_bytes": 6533120
+          },
+          "exit_code": 0,
+          "outcome": "ok",
+          "sandbox_id": "esbx-det_repeat3-680b3dfa",
+          "stderr": "",
+          "stdout": "DET a44659ebee4b06236fc28174008bf1416141b69a4edd0f2b2e62a5eece75cec3",
+          "verdict_sha256": "c8731d03843141c7ce5c7d01cb4178cf50013d0b17da771db89b13e7b402d23b"
+        }
+      ],
+      "sandbox_id": "esbx-det_repeat3-79ce242d",
+      "verdict_sha256": "c8731d03843141c7ce5c7d01cb4178cf50013d0b17da771db89b13e7b402d23b"
+    }
+  ],
+  "summary": {
+    "all_passed": true,
+    "passed": 10,
+    "total": 10
+  }
+}

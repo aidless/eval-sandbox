@@ -1,0 +1,20 @@
+[project]
+name = "eval-sandbox"
+version = "0.1.0"
+description = "Task-level sandbox isolation for LLM eval runs: network/fs namespaces, cgroup v2 limits, attributable verdicts"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = []
+
+[project.scripts]
+eval-sandbox = "eval_sandbox.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["eval_sandbox*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
