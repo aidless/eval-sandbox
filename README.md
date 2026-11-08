@@ -82,6 +82,11 @@ det_repeat3              determinism  ok               PASS
 SUMMARY: 10/10 PASS        （墙钟 5.2s）
 ```
 
+以上逐条数值为 2026-11-04T06:36:53Z 那一轮；该轮快照存档于提交
+[`97b34ab`](https://github.com/aidless/eval-sandbox/blob/97b34ab/evidence/run.json)。
+当前树内 [evidence/run.json](evidence/run.json) 是之后一次重跑：10/10 与 `det_repeat3`
+的 sha256 相同，秒/毫秒级计时不同（以快照文件为准）。
+
 pytest：`27 passed in 13.29s`（`python3 -m pytest -q`；加入 fleet 测试后共 43 个）。
 
 ### 负控制（证明不是"碰巧没网/碰巧没内存"）
@@ -135,6 +140,11 @@ python3 -m eval_sandbox.cli fleet --tasks 40 --spin 0.4
 | #2 | 11.19s | 1.80s | 6.2x |
 | #3 | 11.30s | 2.30s | 4.9x |
 | #4（最终取证） | 15.94s | 2.08s | 7.6x |
+
+上表与下方逐任务资源账为 2026-11-04 最终取证轮；该轮快照存档于提交
+[`32dfa42`](https://github.com/aidless/eval-sandbox/blob/32dfa42/evidence/fleet.json)。
+当前树内 [evidence/fleet.json](evidence/fleet.json) 是随后一次重跑：7/7 与判决 sha256
+`65c4936a…` 相同，计时数值不同（以快照文件为准）。
 
 逐任务资源账（最终取证那一轮；`cpu_quota=50%`，标准任务 `memory.max=128MB`，OOM 任务 `64MB`）：
 
