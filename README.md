@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/aidless/eval-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/eval-sandbox/actions/workflows/ci.yml)
 
+> **English TL;DR**: A task-level sandboxed executor plus concurrent evaluation fleet for LLM workloads: each task gets its own network/mount/PID namespaces (bubblewrap) and independent cgroup v2 limits, with 10 single-task and 7 fleet isolation criteria implemented as executable assertions backed by evidence JSON and negative controls. Run `python3 -m eval_sandbox.cli check` or `fleet`; missing prerequisites fail closed rather than degrading. It is stdlib-only and explicitly not a container: no image isolation, no whitelisted egress, no queueing.
+
 任务级沙盒隔离执行器 + 并发评测车队（`eval-fleet`）：给每一条 LLM 评测任务一个独立的网络/挂载/PID 命名空间 + 独立 cgroup v2，
 把"任务跑了但不知道是不是被隔离了"变成"每条限制都有可执行断言和归因证据"；再多任务并发时，逐个任务断言隔离没有退化。
 
