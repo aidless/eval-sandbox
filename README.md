@@ -1,5 +1,7 @@
 # eval-sandbox
 
+[![CI](https://github.com/aidless/eval-sandbox/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/eval-sandbox/actions/workflows/ci.yml)
+
 任务级沙盒隔离执行器 + 并发评测车队（`eval-fleet`）：给每一条 LLM 评测任务一个独立的网络/挂载/PID 命名空间 + 独立 cgroup v2，
 把"任务跑了但不知道是不是被隔离了"变成"每条限制都有可执行断言和归因证据"；再多任务并发时，逐个任务断言隔离没有退化。
 
